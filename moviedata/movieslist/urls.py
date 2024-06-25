@@ -1,5 +1,6 @@
-from django.contrib import url 
+from django.urls import path 
+from . import views
 
 urlpatterns = [
-    
+    path('',views.getMovies,name="list")
 ]
