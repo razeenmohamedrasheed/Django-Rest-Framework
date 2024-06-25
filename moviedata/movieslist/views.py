@@ -8,3 +8,12 @@ def getMovies(request):
         'movies':list(movies.values())
     }
     return JsonResponse(response)
+
+def getIndividualMovies(request,pk):
+    movies = Movie.objects.get(pk=pk)
+    response = {
+       'name':movies.name,
+       'description':movies.description,
+       'active':movies.active,
+    }
+    return JsonResponse(response)
