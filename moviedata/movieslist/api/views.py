@@ -2,8 +2,11 @@ from movieslist.models import Movie
 from .serializers import MovieSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework import status
 
+
+# function Based Views
 
 @api_view(['GET','POST'])
 def movieList(request):
@@ -26,9 +29,7 @@ def individualMovieData(request,pk):
         try:  
           movies = Movie.objects.get(pk=pk)
         except Movie.DoesNotExist:
-            return Response({
-                'error':'Not Found'
-            },status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':'Not Found'},status=status.HTTP_404_NOT_FOUND)
         serialzer = MovieSerializer(movies)
         return Response(serialzer.data)
       elif request.method == 'PUT':
@@ -42,5 +43,15 @@ def individualMovieData(request,pk):
            movies = Movie.objects.get(pk=pk)
            movies.delete()
            return Response(status=status.HTTP_204_NO_CONTENT)
+      
+
+# Class Based Views
+# class listall(APIView):
+    
+#     def get(self,request):
+#         movies = Movie.objects.all()
+#         serialzer = MovieSerializer(movies,many=True)
+#         return Response(serialzer.data)
+        
           
           
